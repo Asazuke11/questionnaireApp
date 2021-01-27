@@ -27,8 +27,8 @@ User.sync().then(() => {
 
 //GitHub認証
 var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID || '2930e999d4488dd44749';
-var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || '3a1cd7f1400c31924f12303a70fae7c2c93ef7d3';
+var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID || '46e0be98e79538e62630';
+var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || 'fef56e398869c93b9d9d4bdb934806a25f27636c';
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -58,38 +58,38 @@ passport.use(new GitHubStrategy({
 ));
 
 //Google認証
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
-var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '778771617054-uiklh0etg0ctd26ve7jugn6mfga5nue5.apps.googleusercontent.com';
-var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || 'tBKMZVkLQPpI7i5mRvF_6wsL';
+// var GoogleStrategy = require('passport-google-oauth20').Strategy;
+// var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '778771617054-uiklh0etg0ctd26ve7jugn6mfga5nue5.apps.googleusercontent.com';
+// var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || 'tBKMZVkLQPpI7i5mRvF_6wsL';
 
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user);
+// });
 
-passport.deserializeUser(function (user, done) {
-  done(null, obj);
-});
+// passport.deserializeUser(function (user, done) {
+//   done(null, obj);
+// });
 
-passport.use(new GoogleStrategy({
-  clientID: GOOGLE_CLIENT_ID,
-  clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/google/callback' : 'http://localhost:8000/auth/google/callback'
-},
-  function (accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      // return done(null, profile);
-      // var userId = parseInt(profile.id);
-      User.upsert({
-        userId: profile.id,
-        username: profile.displayName,
-        numberofmyAnswers: profile.numberofmyAnswers,
-        numberofmyQuestionnaire: profile.numberofmyQuestionnaire
-      }).then(() => {
-        done(null, profile);
-      });
-    });
-  }
-));
+// passport.use(new GoogleStrategy({
+//   clientID: GOOGLE_CLIENT_ID,
+//   clientSecret: GOOGLE_CLIENT_SECRET,
+//   callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/google/callback' : 'http://localhost:8000/auth/google/callback'
+// },
+//   function (accessToken, refreshToken, profile, done) {
+//     process.nextTick(function () {
+//       // return done(null, profile);
+//       // var userId = parseInt(profile.id);
+//       User.upsert({
+//         userId: profile.id,
+//         username: profile.displayName,
+//         numberofmyAnswers: profile.numberofmyAnswers,
+//         numberofmyQuestionnaire: profile.numberofmyQuestionnaire
+//       }).then(() => {
+//         done(null, profile);
+//       });
+//     });
+//   }
+// ));
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
